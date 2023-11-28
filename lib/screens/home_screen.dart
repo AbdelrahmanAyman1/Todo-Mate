@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_mate/widgets/bottom_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = 'home';
@@ -34,33 +35,7 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add, color: Colors.white, size: 20),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        surfaceTintColor: const Color(0xFFffffff),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 9,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.list_rounded,
-                color: Colors.grey,
-                size: 40,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.settings_suggest_outlined,
-                color: Colors.grey,
-                size: 33,
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const BottomAppBarWidget(),
     );
   }
 }
