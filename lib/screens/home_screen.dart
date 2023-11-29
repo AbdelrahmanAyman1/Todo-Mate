@@ -1,11 +1,20 @@
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_mate/widgets/bottom_app_bar.dart';
+import 'package:todo_mate/screens/tabs/settings_tab.dart';
+import 'package:todo_mate/screens/tabs/tasks_tab.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static String routeName = 'home';
 
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +28,7 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * .157,
-            width: double.infinity,
-            color: const Color(0xFF5D9CEC),
-          )
-        ],
-      ),
+      body: tabs[index],
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(eccentricity: 1.0),
         backgroundColor: const Color(0xFF5D9CEC),
@@ -35,7 +36,39 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add, color: Colors.white, size: 20),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomAppBarWidget(),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
+        surfaceTintColor: Colors.white,
+        child: SingleChildScrollView(
+          child: BottomNavigationBar(
+            currentIndex: index,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey,
+            onTap: (value) {
+              setState(() {
+                index = value;
+              });
+            },
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.list_rounded, size: 35), label: ''),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.settings_suggest_outlined,
+                    size: 35,
+                  ),
+                  label: ''),
+            ],
+          ),
+        ),
+      ),
     );
   }
+
+  List<Widget> tabs = [const TasksTab(), const SettingsTab()];
 }
